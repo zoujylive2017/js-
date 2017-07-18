@@ -26,4 +26,11 @@
   bubbleSort(arr);
   console.log(String(arr));
 
+//附：交换两变量值的方法
+方法一: var t=b; b=a; a=t; 
+方法二: a+=b; b=a-b; a=a-b;
+方法三: a^=b; b^=a; a^=b;
+方法四：b= [a,a=b][0]万能的，前面三只能交换数字
+
+
 
