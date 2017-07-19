@@ -40,3 +40,7 @@ console.timeEnd("repeat1");
 console.time("repeat2");
 repeat2(arr);
 console.timeEnd("repeat2");
+
+//方法3：es6新特性set,set得到的是一个对象，form把对象转化为数组。
+var newArry=Array.form(new Set(arr));
+console.log(newArry);
