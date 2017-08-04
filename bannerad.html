@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    #d1{
+        margin:200px auto;
+        background:red;
+        position: relative;
+        width:832px;
+        height:123px;
+        overflow: hidden;
+
+    }
+    ul{
+        position:absolute;
+        left:0;
+        top:0;
+        margin:0;
+        padding:0;
+
+    }
+    #d1 ul li{
+        float:left;
+        list-style-type: none;
+        width:208px;
+        height:123px;
+    }
+</style>
+<body>
+<a href="">向左走</a>
+<a href="">向右走</a>
+<div id="d1">
+    <ul>
+        <li><img src="img/1.jpg" alt=""/></li>
+        <li><img src="img/2.jpg" alt=""/></li>
+        <li><img src="img/3.jpg" alt=""/></li>
+        <li><img src="img/4.jpg" alt=""/></li>
+    </ul>
+</div>
+<script>
+    window.onload=function(){
+        var div1=document.getElementById("d1");
+        var ul=div1.getElementsByTagName("ul")[0];
+        var li=ul.getElementsByTagName("li");
+        var speed=-2;//控制方向，每30秒向左移动2
+        ul.innerHTML+=ul.innerHTML;//复制一组图片，用于对接
+        ul.style.width=li[0].offsetWidth*li.length+"px";
+       function move(){
+           //当到最后一张，扯回第一张，向左
+            if(ul.offsetLeft<-ul.offsetWidth/2){
+                ul.style.left="0";
+            }
+           //向右
+            if(ul.offsetLeft>0){
+                ul.style.left=-ul.offsetWidth/2+"px";
+            }
+            ul.style.left=ul.offsetLeft+speed+"px";
+        };
+        //鼠标移入暂停 移出滚动
+        var timer=setInterval(move,30);
+        div1.onmouseover=function(){
+            clearInterval(timer);
+        }
+        div1.onmouseout=function(){
+            timer=setInterval(move,30);
+        }
+        //点击向右向左
+        document.getElementsByTagName("a")[0].onclick=function(){
+            speed=-2;
+        }
+        document.getElementsByTagName("a")[1].onclick=function(){
+            speed=2;
+        }
+
+    }
+    //offsetLeft获取元素的左边距，offsetWidth获取元素的宽度
+    //setInterval循环 每隔多少时间执行一次 setTimeout一次性，只执行一次
+
+</script>
+</body>
+</html>
