@@ -4,7 +4,7 @@ for(var i=0;i<10;i++){
     var msg="hello"+i*2+i;
     console.log("此时i的值为："+i+" 所以msg为："+msg);
 }
-console.log(msg);//hello1189
+console.log(msg);//hello189
 console.log(i);//10
 
 
