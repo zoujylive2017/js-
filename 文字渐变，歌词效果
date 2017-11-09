@@ -1,0 +1,193 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>颜色渐变</title>
+    <link rel="stylesheet" href="reset.css">
+</head>
+<style>
+    body{
+        background-color: #aaaaaa;
+    }
+    .transDiv{
+        width: 400px;
+        height: 600px;
+        background-color: #01132B;
+        overflow: hidden;
+    }
+    .transDiv table{
+        border-top: 1px solid transparent;
+        width: 100%;
+    }
+    .transDiv tr{
+        line-height: 40px;
+        color: #ffffff;
+        text-align: center;
+    }
+</style>
+<body>
+    <div class="transDiv" id="text">
+
+        <table>
+            <tr><td>{随意随意1}</td></tr>
+            <tr><td>{随意随意2}</td></tr>
+            <tr><td>{随意随意3}</td></tr>
+            <tr><td>{随意随意4}</td></tr>
+            <tr><td>{随意随意5}</td></tr>
+            <tr><td>{随意随意6}</td></tr>
+            <tr><td>{随意随意7}</td></tr>
+            <tr><td>{随意随意8}</td></tr>
+            <tr><td>{随意随意9}</td></tr>
+            <tr><td>{随意随意10}</td></tr>
+            <tr><td>{随意随意11}</td></tr>
+            <tr><td>{随意随意12}</td></tr>
+            <tr><td>{随意随意13}</td></tr>
+            <tr><td>{随意随意14}</td></tr>
+            <tr><td>{随意随意15}</td></tr>
+            <tr><td>{随意随意16}</td></tr>
+            <tr><td>{随意随意17}</td></tr>
+            <tr><td>{随意随意18}</td></tr>
+            <tr><td>{随意随意19}</td></tr>
+            <tr><td>{随意随意20}</td></tr>
+            <tr><td>{随意随意21}</td></tr>
+            <tr><td>{随意随意22}</td></tr>
+            <tr><td>{随意随意23}</td></tr>
+            <tr><td>{随意随意24}</td></tr>
+            <tr><td>{随意随意25}</td></tr>
+            <tr><td>{随意随意26}</td></tr>
+            <tr><td>{随意随意27}</td></tr>
+            <tr><td>{随意随意28}</td></tr>
+            <tr><td>{随意随意29}</td></tr>
+            <tr><td>{随意随意30}</td></tr>
+            <tr><td>{随意随意31}</td></tr>
+            <tr><td>{随意随意32}</td></tr>
+            <tr><td>{随意随意33}</td></tr>
+            <tr><td>{随意随意34}</td></tr>
+            <tr><td>{随意随意35}</td></tr>
+            <tr><td>{随意随意36}</td></tr>
+            <tr><td>{随意随意37}</td></tr>
+            <tr><td>{随意随意38}</td></tr>
+            <tr><td>{随意随意39}</td></tr>
+            <tr><td>{随意随意40}</td></tr>
+            <tr><td>{随意随意41}</td></tr>
+            <tr><td>{随意随意42}</td></tr>
+            <tr><td>{随意随意43}</td></tr>
+            <tr><td>{随意随意44}</td></tr>
+            <tr><td>{随意随意45}</td></tr>
+            <tr><td>{随意随意46}</td></tr>
+            <tr><td>{随意随意47}</td></tr>
+            <tr><td>{随意随意48}</td></tr>
+            <tr><td>{随意随意49}</td></tr>
+            <tr><td>{随意随意50}</td></tr>
+        </table>
+    </div>
+</body>
+
+<script>
+
+//使用方法，id为table父盒子的id
+//level是颜色渐变的成都，用数字表示  color取值0-255
+//方法go，为启动方法。
+
+
+
+    function Textcolor(id,level){
+       this.box=this.$(id);
+       this.table=this.box.getElementsByTagName('table')[0];
+       this.trs=this.box.getElementsByTagName('tr');
+       this.level=level
+    }
+
+    Textcolor.prototype.$=function(id){
+        return document.getElementById(id)
+    };
+    //滑轮滑动触发方法
+    Textcolor.prototype.go=function(){
+        var that=this;
+        //通用浏览器滑动鼠轮方法
+        this.init();
+        if(isFirefox=navigator.userAgent.indexOf("Firefox")>0){
+            //火狐浏览器滑动鼠轮方法
+            this.box.addEventListener("DOMMouseScroll", function(event) {
+                //that.scrollfunction(event)
+                /* detail*/
+            });
+        }else{
+
+           /* that.box.addEventListener('onmousewheel',function(){
+                alert(1)
+                that.scrollfunction(event)
+            })*/
+            that.box.onmousewheel=function(e){that.scrollfunction(e)}
+        }
+    };
+    //执行函数
+    Textcolor.prototype.scrollfunction=function(event){
+        var that=this;
+        //获取table与负父盒子的marginTop,marginBottom,
+        //获取table高度,
+        //获取table父盒子的高度,
+        //获取tr元素的高度
+        //parseInt,不带单位,纯数字，方便后面计算
+        //console.log(that.table);
+        var top=parseInt(window.getComputedStyle(that.table).marginTop),
+        bottom=parseInt(window.getComputedStyle(that.table).marginBottom),
+        tableHeight=parseInt(window.getComputedStyle(that.table).height),
+        divHeight=parseInt(window.getComputedStyle(that.box).height);
+        trHeight=parseInt(window.getComputedStyle(that.trs[0]).height);
+
+//判断是否划过头了-----效果较差
+        if(top>0){
+            that.table.style.marginTop=0+'px';
+            return
+        }else if(top <-(tableHeight-divHeight)){
+            that.table.style.marginTop=-(tableHeight-divHeight)+'px';
+            return
+        }
+
+        //改变table的变化量
+        var topNow=top+event.wheelDelta;//event.wheelDelta鼠轮滑动了之后，top是多少，火狐是event.detail
+        that.table.style.marginTop=topNow+'px';
+
+        // console.log(trHeight)
+        //计算table上面的隐藏部分，有多少个tr元素高度-结果为result
+        var result=Math.floor(topNow/trHeight);
+
+
+        //字体初始颜色
+        //table上面没隐藏，终止
+        if( result>=0){
+            return
+            //table上面隐藏了，便利所有的tr,设置颜色
+        }else {
+            new Array().forEach.call(that.trs,function(li,i){
+                li.style.color='rgb(255, 255, 255)';
+                //从未隐藏部分开始，逐个减少字体颜色
+                if(i>= -result){
+                    var temi=i-(-result);
+
+                    //console.log(window.getComputedStyle(li).color)
+                    li.style.color='rgb('+(255-temi*that.level)+','+(255-temi*that.level)+', '+(255-temi*that.level)+')';
+                    // console.log(window.getComputedStyle(li).color)
+                }
+            })
+        }
+    }
+    //初始化字体渐变颜色
+    Textcolor.prototype.init=function(){
+        var that=this;
+      new Array().forEach.call(that.trs,function(li,i){
+          li.style.color='rgb(255, 255, 255)';
+              li.style.color='rgb('+(255-i*that.level)+','+(255-i*that.level)+', '+(255-i*that.level)+')';
+              // console.log(window.getComputedStyle(li).color)
+      })
+  };
+
+
+
+    var a=new Textcolor('text',40)
+    a.go()
+</script>
+</html>
