@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var a={n:1};
+		var b=a;
+		a.x=a={n:2};
+		console.log(a.x);//un
+		console.log(b.x);//{n:2}
+		
+		function fun(n,o){
+			console.log(o);
+			return{
+				fun:function(m){
+					return fun(m,n);
+				}
+			}
+		}
+		var fn=fun(0);//un
+		fn.fun(1);//0
+		fn.fun(2);//0
+		fn.fun(3);//0
+		fn=fun(0).fun(1).fun(2).fun(3);//un 0 1 2
+		fn=fun(0).fun(1);//un 0
+		fn.fun(2);//1
+		function Foo(){
+			getName=function(){
+				alert(1);
+				return this;
+			}
+		}
+		Foo.getName=function(){
+			alert(2);
+		}
+		Foo.prototype.getName=function(){
+			alert(3);
+		}
+		var getName=function(){
+			alert(4);
+		}
+		function getName(){
+			alert(5);
+		}
+		Foo.getName();//2
+		getName();//4
+		Foo().getName();//报错
+		getName();//4
+		new Foo.getName();//2
+		new Foo().getName();//3
+		new new Foo().getName();//3
+	</script>
+</html>
+
