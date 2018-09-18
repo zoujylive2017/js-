@@ -34,3 +34,5 @@ path.resolve(__dirname, '../src/assets/styles/common.less')路径改成自己对
 2、在main.js导入
 
 import "../common/less/index.less";
+
+src目录下的资源只能import或require 如果要引静态文件比如在index.html里面引入共用的css，只能放在staic文件下 link引入
