@@ -1,0 +1,36 @@
+npm install sass-resources-loader --save-dev
+build 的utils.js中exports.cssLoaders = function (options) {}中加上一下代码：
+function lessResourceLoader() {
+        var loaders = [
+            cssLoader,
+            'less-loader',
+            {
+                loader: 'sass-resources-loader',
+                options: {
+                    resources: [
+                        path.resolve(__dirname, '../src/assets/styles/common.less'),//你的less文件路径
+                    ]
+                }
+                        }
+        ];
+        if (options.extract) {
+            return ExtractTextPlugin.extract({
+                use: loaders,
+                fallback: 'vue-style-loader'
+            })
+        } else {
+            return ['vue-style-loader'].concat(loaders)
+        }
+    }
+path.resolve(__dirname, '../src/assets/styles/common.less')路径改成自己对应的文件 
+然后后面将 return{} 块中的 less: generateLoaders('less') 替换成上面自定义的函数 less: lessResourceLoader()
+
+导入less文件
+
+1、在style标签内导入
+
+@import "../common/less/index.less";
+@import  url("../common/less/index.less");
+2、在main.js导入
+
+import "../common/less/index.less";
