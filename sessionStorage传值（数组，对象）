@@ -1,0 +1,5 @@
+
+//存值
+sessionStorage.setItem('people',JSON.stringify(this.optionPeople));
+//获取
+this.optionPeople=JSON.parse(sessionStorage.getItem('people'));
